@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wonder Brand Portfolio</title>
+<style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #BCD5D0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    header {
+        background-color: #5D9781;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    /* Portfolio Section */
+    .portfolio {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .portfolio-item {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    .portfolio-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .portfolio-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .portfolio-item h3 {
+        font-size: 1.5em;
+        margin: 0;
+        color: #296453;
+    }
+    .portfolio-item p {
+        color: #5D9781;
+        font-size: 1em;
+        line-height: 1.6;
+        margin-top: 10px;
+    }
+    /* Large Image Section */
+    .large-image-section {
+        text-align: center;
+        margin: 50px 0;
+    }
+    .large-image-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    .large-image-section img:hover {
+        transform: scale(1.1);
+    }
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        max-width: 800px;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        animation: fadeIn 0.5s ease;
+    }
+    .modal-content img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    .modal-content img:hover {
+        transform: scale(1.2);
+    }
+    .modal-content h2 {
+        font-size: 2em;
+        color: #333;
+        margin-top: 10px;
+    }
+    .modal-content p {
+        font-size: 1.2em;
+        color: #666;
+        margin-top: 10px;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2em;
+        color: #aaa;
+        cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+        color: #333;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    /* About Section */
+    .about-section {
+        background-color: #f9f9f9;
+        padding: 50px 20px;
+        text-align: center;
+        margin-top: 50px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .about-section h2 {
+        font-size: 2.5em;
+        color: #296453;
+        margin-bottom: 20px;
+    }
+    .about-section p {
+        font-size: 1.2em;
+        color: #5D9781;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .about-section img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    /* Extra Content Section */
+    .extra-content {
+        background-color: #fff;
+        padding: 50px 20px;
+        text-align: center;
+        margin-top: 50px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .extra-content h2 {
+        font-size: 2.5em;
+        color: #296453;
+        margin-bottom: 20px;
+    }
+    .extra-content p {
+        font-size: 1.2em;
+        color: #5D9781;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto 20px;
+    }
+    .extra-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        max-width: 800px;
+        text-align: left;
+    }
+    .extra-content ul li {
+        font-size: 1.2em;
+        color: #5D9781;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+    .extra-content .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        color: #A5C1BD;
+        background-color: #2D4943;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .extra-content .btn:hover {
+        background-color: #555;
+    }
+    /* Contact Section */
+    .contact-section {
+        background-color:#2D4943;
+        color: #A5C1BD;
+        padding: 50px 20px;
+        text-align: center;
+        margin-top: 50px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .contact-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+    .contact-section p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .contact-info {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .contact-info img {
+        width: 30px;
+        height: 30px;
+        margin: 0 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+		
+		        <header>
+            <h1>Caged Bird</h1>
+        </header>
+		
+		<div class="large-image-section">
+            <img src="Mockup 13.jpg" alt="Large Image" onclick="openModal('Mockup 13.jpg', 'A1 海報', '')">
+        </div>
+		
+		<div class="about-section">
+            <h2>囚鳥</h2>
+            <p>近年來,許多拍攝場所存在著對鳥類進行不當拍攝的情況,包括籠拍、巢拍和誘拍。這些行為可能導致鳥類受傷、死亡,甚至疫病傳播風險,對生態造成負面影響,請停止這樣的行為！</p>
+			<p>In recent years, many shooting locations have engaged in improper photography practices involving birds, such as cage shooting, nest shooting, and lure shooting. These behaviors may result in bird injuries, fatalities, and even pose risks of disease transmission, causing negative impacts on the ecosystem. Please stop these behaviors!</p>
+        </div>
+		
+        <header>
+            <h1>成品</h1>
+        </header>
+        <div class="portfolio">
+            <div class="portfolio-item" onclick="openModal('Mockup 01.jpg', '吊飾', 'pendant')">
+                <img src="Mockup 01.jpg" alt="吊飾">
+                <h3>吊飾 </h3>
+                <p>pendant</p>
+            </div>
+            <div class="portfolio-item" onclick="openModal('Mockup 02.jpg', '徽章', 'badge')">
+                <img src="Mockup 02.jpg" alt="徽章">
+                <h3>徽章</h3>
+                <p>badge</p>
+            </div>
+            <div class="portfolio-item" onclick="openModal('杯子Mockup.jpg', '馬克杯', 'mug')">
+                <img src="杯子Mockup.jpg" alt="馬克杯">
+                <h3>馬克杯</h3>
+                <p>mug</p>
+            </div>
+            <div class="portfolio-item" onclick="openModal('Mockup 09.jpg', '籠拍', '1. 非法走私與盜獵 2. 公然獵捕圈養保育類 3. 為方便鳥客拍攝，造成鳥類傷害')">
+                <img src="Mockup 09.jpg" alt="籠拍">
+                <h3>籠拍</h3>
+                <p>such as cage shooting</p>
+            </div>
+            <div class="portfolio-item" onclick="openModal('Mockup 10.jpg', '巢拍', '1.為方便鳥客拍攝，將隱蔽的枝葉修光，讓鳥完全暴露在危險中2. 把整個鳥巢從野外偷走，移回室內拍攝')">
+                <img src="Mockup 10.jpg" alt="巢拍">
+                <h3>巢拍</h3>
+                <p>nest shooting</p>
+            </div>
+            <div class="portfolio-item" onclick="openModal('Mockup 11.jpg', '誘拍', '1. 長期不當飼養餵食野鳥以供拍攝，影響鳥類健康及自然行為2.各種人為干擾、干預，造成鳥類傷害')">
+                <img src="Mockup 11.jpg" alt="誘拍">
+                <h3>誘拍</h3>
+                <p>and lure shooting</p>
+            </div>
+            <!-- Add more portfolio items as needed -->
+        </div>
+        
+        <div class="extra-content">
+            <h2>設計背景</h2>
+            <p>在近一兩年發現，有許多拍攝場所對鳥類「籠拍」、「巢拍」、「誘拍」三大不當拍鳥行為，場內的鳥類來源，皆可能涉及非法獵捕、走私、不當圈養及騷擾虐待，造成鳥類傷亡，並帶來人畜共通疫病傳播的風險，當中更不乏保育鳥類。而「巢拍」、「誘拍」則涉及破壞鳥類棲地生態及影響其自然行為。  </p>
+            <ul>
+                <li>主張/設計目的</li>
+                <li>想呼籲各位沒有需求就沒有傷害，請大家停止籠拍、巢拍、誘拍三大不當拍鳥行為 ，別再讓無數鳥類受害。</li>
+            </ul>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+		
+		        <div class="extra-content">
+            <h2>案例分析</h2>
+            <p>受眾:愛攝影、愛拍鳥類的人以及非法抓鳥的業者 </p>
+            <ul>
+                <li>一、籠拍</li>
+                <li>1. 非法走私與盜獵</li>
+				<li>2. 公然獵捕圈養保育類</li>
+                <li>3. 為方便鳥客拍攝，造成鳥類傷害</li>
+				
+				<li>二、巢拍</li>
+                <li>1.為方便鳥客拍攝，將隱蔽的枝葉修光，讓鳥完全暴露在危險中</li>
+				<li>2. 把整個鳥巢從野外偷走，移回室內拍攝</li>
+				
+				<li>三、誘拍</li>
+                <li>1. 長期不當飼養餵食野鳥以供拍攝，影響鳥類健康及自然行為</li>
+				<li>2.各種人為干擾、干預，造成鳥類傷害</li>
+            </ul>
+        </div>
+		
+		<div class="large-image-section">
+            <img src="LOGOO.jpg" alt="Large Image" onclick="openModal('LOGOO.jpg', 'LOGO設計', '')">
+        </div>
+		
+        <div class="large-image-section">
+            <img src="手機.jpg" alt="Large Image" onclick="openModal('手機.jpg', '手機IG', '')">
+        </div>
+		
+		
+        <div class="contact-section">
+            <h2>Contact Us</h2>
+            <p>如有任何疑問或合作，請隨時聯繫。我們始終對新項目和想法持開放態度。</p>
+            <div class="contact-info">
+                <img src="phone.png" alt="Phone Icon">
+                <p>+123 456 7890</p>
+                <img src="email.png" alt="Email Icon">
+                <p>caged-bird@wonderbrand.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-img" src="" alt="Large Image">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(imgSrc, title, description) {
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-description').innerText = description;
+            document.getElementById('myModal').style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
